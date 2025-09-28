@@ -1,25 +1,25 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
 
 const Counter = () => {
-  const initialState = Math.floor(Math.random() * 10) +1
-  const [count, setCount] = useState(initialState)
-  const [open, setOpen] = useState(true)
-  const toggle = () => setOpen(!open)
+  const [text, setText] = useState(" ") // 先に text を定義！
+  const [count, setCount] = useState(0) // 初期値は 0 など明示するのが安全
 
   return (
     <>
-    <button onClick={toggle}>{open ? 'close':'open'}</button>
-    <div className={open ? 'isOpen':'isOpen'}>
       <p>現在の数字は{count}です</p>
-      <button onClick={() => setCount(prevState => prevState + 1)}>+ 1</button>
-      <button onClick={() => setCount(count - 1)}>- 1</button>
-      <button onClick={() => setCount(0)}>0</button>
-      <button onClick={() => setCount(initialState)}>最初の数値に戻す</button>
-    </div>
+      <button onClick={() => setCount(prev => prev + 1)}>+ 1</button>
+      <button onClick={() => setCount(prev => prev - 1)}>- 1</button>
+
+      <p>
+        値を入力：
+        <input value={text} onChange={(e) => setText(e.target.value)} />
+        {text}
+      </p>
+
+      <button onClick={() => setCount(Number(text))}>入力値でカウントを更新</button>
+      <button onClick={() => setCount(0)}>最初の数値に戻す</button>
     </>
   )
 }
+
 export default Counter
